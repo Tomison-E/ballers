@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/ball_Models.dart';
+import 'package:ballers/utils/sizeConfig.dart';
 import 'dart:async';
 
 
@@ -15,6 +16,7 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
   int ii;
   int j;
   final _curve = Curves.linear;
+  double motion = 0.0;
   AnimationController animationController;
   double a;
   double ao;
@@ -45,37 +47,102 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context){
-
+    motion = SizeConfig.blockSizeVertical * 2.46;
     return Container(
           child: Column(
                 children: [
                   Container(
-                    height: 75.0,
-                    color: Colors.black,
-                    width: 400.0,
+                    height: SizeConfig.blockSizeVertical * 9.23,
+                    color: Colors.black87,
+                    width: SizeConfig.blockSizeHorizontal * 100,
                     child: Stack(
                       children: <Widget>[
-                        AnimatedPositioned(child: AnimatedOpacity(opacity: ao, duration: Duration(milliseconds: 500),child: Padding(child:Text(widget.ball[ii].name, style: TextStyle(color: Colors.white,fontSize: 40.0,fontWeight: FontWeight.bold),textAlign: TextAlign.left),padding: EdgeInsets.only(top: 20.0,left: 40.0))),duration: Duration(milliseconds: 500),curve: _curve,top: a),
-                        AnimatedPositioned(child: AnimatedOpacity(opacity: bo, duration: Duration(milliseconds: 500),child: Padding(child:Text(widget.ball[j].name, style: TextStyle(color: Colors.white,fontSize: 40.0,fontWeight: FontWeight.bold),textAlign: TextAlign.left),padding: EdgeInsets.only(top: 20.0,left: 40.0))),duration: Duration(milliseconds: 500),curve: _curve,top: b), //  Padding(child: Text("The Top Star ball had a popular design, it was similar to the ball of the time however there seems to the ball be there",style: TextStyle(color: Colors.white70,fontSize: 10.0),textAlign: TextAlign.left,),padding: EdgeInsets.only(left: 30.0),)
+                        AnimatedPositioned(child: AnimatedOpacity(opacity: ao,
+                            duration: Duration(milliseconds: 300),
+                            child: Padding(child: Text(widget.ball[ii].name,
+                                style: TextStyle(color: Colors.white,
+                                    fontSize: 40.0,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.left),
+                                padding: EdgeInsets.only(
+                                    top: SizeConfig.blockSizeVertical * 2.45,
+                                    left: SizeConfig.blockSizeHorizontal * 8))),
+                            duration: Duration(milliseconds: 500),
+                            curve: _curve,
+                            top: a),
+                        AnimatedPositioned(child: AnimatedOpacity(opacity: bo,
+                            duration: Duration(milliseconds: 300),
+                            child: Padding(child: Text(widget.ball[j].name,
+                                style: TextStyle(color: Colors.white,
+                                    fontSize: 40.0,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.left),
+                                padding: EdgeInsets.only(
+                                    top: SizeConfig.blockSizeVertical * 2.45,
+                                    left: SizeConfig.blockSizeHorizontal * 8))),
+                            duration: Duration(milliseconds: 500),
+                            curve: _curve,
+                            top: b),
+                        //  Padding(child: Text("The Top Star ball had a popular design, it was similar to the ball of the time however there seems to the ball be there",style: TextStyle(color: Colors.white70,fontSize: 10.0),textAlign: TextAlign.left,),padding: EdgeInsets.only(left: 30.0),)
                       ],alignment: Alignment.topLeft,
                     ), alignment: Alignment.topLeft,
                   ),
                   Container(
-                    height: 50.0,
-                    color: Colors.black,
-                    width: 400.0,
+                    height: SizeConfig.blockSizeVertical * 6.16,
+                    color: Colors.black87,
+                    width: SizeConfig.blockSizeHorizontal * 100,
                     child: Stack(
                         children: <Widget>[
-                          AnimatedPositioned(child: AnimatedOpacity(opacity: ao, duration: Duration(milliseconds: 500),child:
-                          Padding(child:Text(widget.ball[ii].description, style: TextStyle(color: Colors.white70,fontSize: 10.0,fontWeight: FontWeight.normal),textAlign: TextAlign.left,maxLines: 2,overflow: TextOverflow.visible,),padding: EdgeInsets.only(top:10.0,left: 30.0,right: 60.0))),duration: Duration(milliseconds: 500),curve: _curve,top: c,left: 1.0,right: 1.0,),
-                          AnimatedPositioned(child: AnimatedOpacity(opacity: bo, duration: Duration(milliseconds: 500),child:
-                          Padding(child:Text(widget.ball[j].description, style: TextStyle(color: Colors.white70,fontSize: 10.0,fontWeight: FontWeight.normal),textAlign: TextAlign.left),padding: EdgeInsets.only(top:10.0,left: 30.0,right: 60.0))),duration: Duration(milliseconds: 500),curve: _curve,top: d,left: 1.0,right: 1.0,),
+                          AnimatedPositioned(
+                            child: AnimatedOpacity(opacity: ao,
+                                duration: Duration(milliseconds: 300),
+                                child:
+                                Padding(child: Text(widget.ball[ii].description,
+                                  style: TextStyle(color: Colors.white70,
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.normal),
+                                  textAlign: TextAlign.left,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.visible,),
+                                    padding: EdgeInsets.only(
+                                        top: SizeConfig.blockSizeVertical *
+                                            1.23,
+                                        left: SizeConfig.blockSizeHorizontal *
+                                            8,
+                                        right: SizeConfig.blockSizeHorizontal *
+                                            16))),
+                            duration: Duration(milliseconds: 500),
+                            curve: _curve,
+                            top: c,
+                            left: 1.0,
+                            right: 1.0,),
+                          AnimatedPositioned(
+                            child: AnimatedOpacity(opacity: bo,
+                                duration: Duration(milliseconds: 300),
+                                child:
+                                Padding(child: Text(widget.ball[j].description,
+                                    style: TextStyle(color: Colors.white70,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left),
+                                    padding: EdgeInsets.only(
+                                        top: SizeConfig.blockSizeVertical *
+                                            1.23,
+                                        left: SizeConfig.blockSizeHorizontal *
+                                            8,
+                                        right: SizeConfig.blockSizeHorizontal *
+                                            16))),
+                            duration: Duration(milliseconds: 500),
+                            curve: _curve,
+                            top: d,
+                            left: 1.0,
+                            right: 1.0,),
                         ],alignment: Alignment.topLeft
                     ), alignment: Alignment.topLeft,
                   ),
                 ],crossAxisAlignment: CrossAxisAlignment.start,
-              ),padding: EdgeInsets.only(bottom: 30.0),
-      color: Colors.black,
+          ), padding: EdgeInsets.only(bottom: 10.0),
+      color: Colors.black87,
     );
   }
 
@@ -86,7 +153,7 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
         temp=a;
         tempo=ao;
         a=b;
-        c=-20.0;
+        c = -motion;
         d = 0.0;
         ao=bo;
         bo=tempo;
@@ -94,7 +161,7 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
       });
       _timer = new Timer(Duration(milliseconds: 500),() {
         setState(() {
-          c=20.0;
+          c = motion;
         });
       });
     }
@@ -104,7 +171,7 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
         temp=a;
         tempo=ao;
         a=b;
-        d=-20.0;
+        d = -motion;
         c = 0.0;
         ao=bo;
         bo=tempo;
@@ -112,7 +179,7 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
       });
       _timer = new Timer(Duration(milliseconds: 500),() {
         setState(() {
-          d=20.0;
+          d = motion;
         });
       });
     }

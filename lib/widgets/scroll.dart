@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ballers/utils/sizeConfig.dart';
 import 'dart:async';
 
 
@@ -20,7 +21,6 @@ class _AnimatedScroll extends State<Scroll> with SingleTickerProviderStateMixin{
   final _curve = Curves.linear;
   AnimationController animationController;
   ScrollController _controller;
-  Timer _timer;
   List<double> radian;
   List<Color> color;
   int i;
@@ -40,20 +40,15 @@ class _AnimatedScroll extends State<Scroll> with SingleTickerProviderStateMixin{
     radian = [2.0,2.0,4.0,2.0,2.0];
     color = [Colors.white54,Colors.white70,Colors.white,Colors.white70,Colors.white54];
     super.initState();
-    _timer = new Timer(Duration(milliseconds: 300),() {
-      _controller.jumpTo(
-          30.0);
-    });
   }
 
 
   @override
   Widget build(BuildContext context){
-
     return Container(
-                height: 70.0,
-                width:30.0,
-                color: Colors.black,
+      height: SizeConfig.blockSizeVertical * 8.621,
+      width: SizeConfig.blockSizeHorizontal * 8,
+      color: Colors.black87,
                 child:ListView(
                   children: <Widget>[
                      Padding(child:CircleAvatar(maxRadius: radian[0],backgroundColor: color[0],),padding: EdgeInsets.only(bottom: 5.0)),
@@ -76,10 +71,10 @@ class _AnimatedScroll extends State<Scroll> with SingleTickerProviderStateMixin{
       if(widget.index<5 || widget.index>0) { // to limit movement to only central
         if(widget.index>i)
           {
-            median = median + 3.0;
+            median = median + 4.0;
             i++;
           }else if(i>widget.index){
-          median = median - 3.0;
+          median = median - 4.0;
           i--;
         }
         _controller.animateTo(

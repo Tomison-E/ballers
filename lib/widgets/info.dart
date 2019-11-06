@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/ball_Models.dart';
+import 'package:ballers/utils/sizeConfig.dart';
 import 'dart:async';
 
 
@@ -29,6 +30,7 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
   Timer _timer;
   int i;
   int j;
+  final hidden = SizeConfig.blockSizeHorizontal * 40;
 
 
   @override
@@ -37,7 +39,7 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
     super.initState();
     a= 1.0;
     b= 1.0;
-    c=150.0;
+    c = hidden;
     d =-10.0;
     ao=1.0;
     bo=0.0;
@@ -48,17 +50,19 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context){
-
     return Container(
-                  height: 300.0,
-                  width: 200.0,
-                  color: Colors.black,
+      height: SizeConfig.blockSizeVertical * 36.95,
+      width: SizeConfig.blockSizeHorizontal * 53.33,
+      color: Colors.black87,
                   child: Stack(
     children:[AnimatedPositioned(child:AnimatedOpacity( child: Column(
                     children: <Widget>[
                     Text(widget.ball[i].time,style: TextStyle(color: Colors.white70,fontSize: 10.0,height: 2.5),maxLines: 1,),
                     Text(widget.ball[i].date,style: TextStyle(color: Colors.white,fontSize: 12.0,fontWeight: FontWeight.bold),maxLines: 1,),
-                   Padding(padding: EdgeInsets.only(top: 25.0),child:Image.asset("images/${widget.ball[i].country}.png",width: 40.0,)),
+                      Padding(padding: EdgeInsets.only(top: 25.0),
+                          child: Image.asset(
+                            "images/${widget.ball[i].country}.png",
+                            width: SizeConfig.blockSizeHorizontal * 10.67,)),
                    Padding(child:RotatedBox(child: Text("${widget.ball[i].country}, ${widget.ball[i].state}",style: TextStyle(color: Colors.white,fontSize: 13.0),maxLines: 1,),quarterTurns: 1,),padding: EdgeInsets.only(right: 10.0,top: 5.0),),
 
                     ],crossAxisAlignment: CrossAxisAlignment.end,mainAxisAlignment: MainAxisAlignment.end,
@@ -69,14 +73,19 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
       children: <Widget>[
         Text(widget.ball[j].time,style: TextStyle(color: Colors.white70,fontSize: 10.0,height: 2.5),maxLines: 1,),
         Text(widget.ball[j].date,style: TextStyle(color: Colors.white,fontSize: 12.0,fontWeight: FontWeight.bold),maxLines: 1,),
-        Padding(padding: EdgeInsets.only(top: 25.0),child:Image.asset("images/${widget.ball[j].country}.png",width: 40.0,)),
+        Padding(padding: EdgeInsets.only(top: 25.0),
+            child: Image.asset("images/${widget.ball[j].country}.png",
+              width: SizeConfig.blockSizeHorizontal * 10.67,)),
         Padding(child:RotatedBox(child: Text("${widget.ball[j].country}, ${widget.ball[j].state}",style: TextStyle(color: Colors.white,fontSize: 13.0),maxLines: 1,),quarterTurns: 1,),padding: EdgeInsets.only(right: 10.0,top: 5.0),),
 
       ],crossAxisAlignment: CrossAxisAlignment.end,mainAxisAlignment: MainAxisAlignment.end,
     ),opacity: bo,duration: Duration(milliseconds: 700),
     ),duration: Duration(milliseconds: 500), left: c,right: d
     )
-      ]),padding: EdgeInsets.only(top: 30.0,right: 25.0),alignment: Alignment.bottomRight,
+    ]),
+      padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 3.70,
+          right: SizeConfig.blockSizeHorizontal * 6.67),
+      alignment: Alignment.bottomRight,
                 );
 
 
@@ -88,7 +97,7 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
       j=widget.i;
       setState(() {
         a = -10.0;
-        b = 150.0;
+        b = hidden;
         tempo=ao;
         ao=bo;
         bo=tempo;
@@ -97,7 +106,7 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
       });
       _timer = new Timer(Duration(milliseconds: 500),() {
         setState(() {
-          a=150.0;
+          a = hidden;
           b = -10.0;
         });
       });
@@ -106,7 +115,7 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
       i=widget.i;
       setState(() {
         c = -10.0;
-        d = 150.0;
+        d = hidden;
         tempo=ao;
         ao=bo;
         bo=tempo;
@@ -115,7 +124,7 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
       });
       _timer = new Timer(Duration(milliseconds: 500),() {
         setState(() {
-          c =150.0;
+          c = hidden;
           d= -10.0;
         });
       });

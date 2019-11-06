@@ -19,6 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^3.1.0+1
+  chewie: ^0.9.8+1
+  video_player: ^0.10.2+5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -44,9 +47,17 @@ flutter:
       - images/ball1.png
       - images/ball2.png
       - images/Sweden.png
+      - images/Kaka Star.png
       - images/Brazil.png
       - images/Nigeria.png
       - images/icons/hamb menu.png
+      - images/scenes.gif
+      - images/scene.jpg
+      - images/scene.png
+      - images/images.png
+      - images/images copy.png
+      - images/Kaka Star1.png
+      - images/90'sFootball.mp4
 
   # To add assets to your application, add an assets section, like this:
   # assets:

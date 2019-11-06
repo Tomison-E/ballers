@@ -10,7 +10,10 @@ class Ball {
     this.country,
     this.homeTeam,
     this.homeTeamScore,
-    this.time
+    this.time,
+    this.details,
+    this.properties,
+    this.values
   });
 
   final String name;
@@ -24,6 +27,10 @@ class Ball {
   final int homeTeamScore;
   final String awayTeam;
   final int awayTeamScore;
+  final String details;
+  final List<String> properties;
+  final List<String> values;
+
 
 
 }

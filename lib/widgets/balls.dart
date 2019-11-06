@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:ballers/utils/sizeConfig.dart';
+import '../models/ball_api.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -45,23 +47,49 @@ class _AnimatedBalls extends State<Balls> with SingleTickerProviderStateMixin{
 
   @override
   void initState(){
-    animationController = AnimationController(duration: Duration(seconds: 1),vsync: this);
-    topTweenA = Tween<double>(begin: 0.0 , end:100.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    leftTweenA = Tween<double>(begin: 120.0 , end:90.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    rightTweenA = Tween<double>(begin: 170.0 , end:100.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
+    animationController =
+        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
+    topTweenA =
+        Tween<double>(begin: 0.0, end: SizeConfig.blockSizeVertical * 12.32)
+            .animate(
+            CurvedAnimation(parent: animationController, curve: _curve));
+    leftTweenA = Tween<double>(begin: SizeConfig.blockSizeHorizontal * 32,
+        end: SizeConfig.blockSizeHorizontal * 24).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
+    rightTweenA = Tween<double>(begin: SizeConfig.blockSizeHorizontal * 45.33,
+        end: SizeConfig.blockSizeHorizontal * 26.67).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
     oTweenA = Tween<double>(begin: 0.0 , end:1.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
     topTweenB = Tween<double>(begin: 0.0 , end:0.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    leftTweenB = Tween<double>(begin: 90.0 , end:-80.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    rightTweenB = Tween<double>(begin: 100.0 , end:-90.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
+    leftTweenB = Tween<double>(begin: SizeConfig.blockSizeHorizontal * 24,
+        end: -SizeConfig.blockSizeHorizontal * 21.33).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
+    rightTweenB = Tween<double>(begin: SizeConfig.blockSizeHorizontal * 26.67,
+        end: -SizeConfig.blockSizeHorizontal * 24).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
     oTweenB = Tween<double>(begin: 1.0 , end:1.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
-    topTweenC = Tween<double>(begin: 0.0 , end:250.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
-    leftTweenC = Tween<double>(begin: -80.0 , end:-80.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
-    rightTweenC = Tween<double>(begin: -90.0 , end:-90.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
+    topTweenC =
+        Tween<double>(begin: 0.0, end: SizeConfig.blockSizeVertical * 30.79)
+            .animate(
+            CurvedAnimation(parent: animationController, curve: _curve));
+    leftTweenC = Tween<double>(begin: -SizeConfig.blockSizeHorizontal * 21.33,
+        end: -SizeConfig.blockSizeHorizontal * 21.33).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
+    rightTweenC = Tween<double>(begin: -SizeConfig.blockSizeHorizontal * 24,
+        end: -SizeConfig.blockSizeHorizontal * 24).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
     oTweenC = Tween<double>(begin: 1.0 , end:1.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    topTweenD = Tween<double>(begin: 250.0 , end:300.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
-    leftTweenD = Tween<double>(begin: -80.0 , end:-80.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
-    rightTweenD = Tween<double>(begin: -90.0 , end:-90.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    oTweenD = Tween<double>(begin: 1.0 , end:0.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
+    topTweenD = Tween<double>(begin: SizeConfig.blockSizeVertical * 33.79,
+        end: SizeConfig.blockSizeVertical * 36.95).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
+    leftTweenD = Tween<double>(begin: -SizeConfig.blockSizeHorizontal * 21.33,
+        end: -SizeConfig.blockSizeHorizontal * 21.33).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
+    rightTweenD = Tween<double>(begin: -SizeConfig.blockSizeHorizontal * 24,
+        end: -SizeConfig.blockSizeHorizontal * 24).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
+    oTweenD = Tween<double>(begin: 1.0, end: 1.0).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
       t = [topTweenA, topTweenB,topTweenC,topTweenD];
       l = [leftTweenA, leftTweenB,leftTweenC,leftTweenD];
       r = [rightTweenA,rightTweenB,rightTweenC,rightTweenD];
@@ -74,18 +102,18 @@ class _AnimatedBalls extends State<Balls> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    return  AnimatedBuilder(animation: animationController,
-              builder: (context, widget) =>
+    var ballers = Provider.of<BallsApi>(context, listen: false).getBalls();
+    return
                   Stack(
                     children: <Widget>[
                       AnimatedPositioned(child: AnimatedOpacity(
-                        child: Image.asset("images/ball.png"),
+                        child: Image.asset("images/ball1.png"),
                         opacity: o[i].value,
                         duration: Duration(milliseconds: 400),),
                         left: l[i].value,
                         right: r[i].value,
                         top: t[i].value,
-                        duration: Duration(milliseconds: 800),),
+                        duration: Duration(milliseconds: 500),),
                       AnimatedPositioned(child: AnimatedOpacity(
                         child: Image.asset("images/ball2.png"),
                         opacity: o[j].value,
@@ -93,18 +121,24 @@ class _AnimatedBalls extends State<Balls> with SingleTickerProviderStateMixin{
                         left: l[j].value,
                         right: r[j].value,
                         top: t[j].value,
-                        duration: Duration(milliseconds: 800),),
+                        duration: Duration(milliseconds: 500),),
                       AnimatedPositioned(child: AnimatedOpacity(
-                        child: Image.asset("images/ball1.png"),
+                        child: Hero(
+                          tag: "balls", child: Image.asset("images/ball1.png"),
+                          flightShuttleBuilder: (flightContext, animation,
+                              direction,
+                              fromContext, toContext) {
+                            return Image.asset(
+                                "images/${ballers[2].name}.png", width: 50.0);
+                          },),
                         opacity: o[k].value,
-                        duration: Duration(milliseconds: 400),),
+                        duration: Duration(milliseconds: 500),),
                         top: t[k].value,
                         right: r[k].value,
                         left: l[k].value,
-                        duration: Duration(milliseconds: 800),)
+                        duration: Duration(milliseconds: 500),)
                     ],
-                  ),
-            );
+                  );
 
   }
 

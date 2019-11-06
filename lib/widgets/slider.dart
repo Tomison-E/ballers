@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/ball_Models.dart';
+import 'package:ballers/utils/sizeConfig.dart';
 import 'dart:async';
 
 class Slide extends StatefulWidget {
@@ -20,6 +21,8 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> slider;
   double width;
+  double verticalPosition;
+  double horizontalPosition;
   Timer _timer;
   Widget vol;
   Widget vol2;
@@ -28,17 +31,21 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
   String countryB;
   String scoreB;
 
+
   @override
   void initState() {
+    horizontalPosition = SizeConfig.blockSizeHorizontal * 5.33;
+    verticalPosition = SizeConfig.blockSizeVertical * 2.46;
+    width = SizeConfig.blockSizeHorizontal * 64;
     animationController =
         AnimationController(duration: Duration(seconds: 1), vsync: this);
-    slider = Tween<double>(begin: 200.0, end: 10.0)
-        .animate(CurvedAnimation(parent: animationController, curve: _curve));
+    slider = Tween<double>(begin: 200.0, end: 10.0).animate(
+        CurvedAnimation(parent: animationController, curve: _curve));
     countryA = widget.ball[widget.i].homeTeam;
     scoreA = " ${widget.ball[widget.i].homeTeamScore}";
     countryB = widget.ball[widget.i].awayTeam;
     scoreB = " ${widget.ball[widget.i].awayTeamScore}";
-    vol = AnimatedContainer(
+    vol = Container(
       child: Row(
         children: [
           Text(widget.ball[widget.i].about,
@@ -65,11 +72,12 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
       ),
-      padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-      duration: Duration(milliseconds: 200),
-      width: 240.0,
+      padding: EdgeInsets.only(left: horizontalPosition,
+          right: horizontalPosition,
+          bottom: verticalPosition),
+      width: width,
     );
-    vol2 = AnimatedContainer(
+    vol2 = Container(
       child: RichText(
         text: TextSpan(
             text: countryB,
@@ -86,9 +94,9 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
         maxLines: 1,
       ),
       alignment: Alignment.centerRight,
-      padding: EdgeInsets.only(right: 20.0, top: 15.0),
-      duration: Duration(milliseconds: 200),
-      width: 240.0,
+      padding: EdgeInsets.only(
+          right: horizontalPosition, top: verticalPosition),
+      width: width,
     );
 
     super.initState();
@@ -97,25 +105,22 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Align(
-          child: InkWell(
-            child: Container(
-                height: 300.0,
-                color: Colors.black,
+        height: SizeConfig.blockSizeVertical * 36.95,
+        color: Colors.black87,
                 child: Row(
                   children: [
                     Column(
                       children: [
                         SizedBox(
-                          height: 50.0,
+                          height: SizeConfig.blockSizeVertical * 6.16,
                         ),
                         vol,
                         AnimatedContainer(
                           color: Colors.white54,
                           height: 1.0,
                           width:
-                              width ?? MediaQuery.of(context).size.width - 130,
-                          duration: Duration(milliseconds: 200),
+                          width,
+                          duration: Duration(milliseconds: 600),
                         ),
                         vol2
                       ],
@@ -123,16 +128,12 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
                     ),
                     Container(
                       color: Colors.white,
-                      height: 150.0,
-                      width: 3.0,
+                      height: SizeConfig.blockSizeVertical * 18.47,
+                      width: SizeConfig.blockSizeHorizontal * 0.8,
                     )
                   ],
                   crossAxisAlignment: CrossAxisAlignment.start,
-                )),
-          ),
-          alignment: Alignment.topCenter),
-      color: Colors.black,
-    );
+                ));
   }
 
   @override
@@ -152,10 +153,10 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
       scoreB = " ${widget.ball[widget.i].awayTeamScore}";
     });
 
-    _timer = new Timer(Duration(milliseconds: 300), () {
+    _timer = new Timer(Duration(milliseconds: 400), () {
       setState(() {
-        width = MediaQuery.of(context).size.width - 130;
-        vol = AnimatedContainer(
+        width = SizeConfig.blockSizeHorizontal * 64;
+        vol = Container(
           child: Row(
             children: [
               Text(widget.ball[widget.i].about,
@@ -182,12 +183,13 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
           ),
-          padding: EdgeInsets.only(left: 30.0, right: 20.0, bottom: 20.0),
-          duration: Duration(milliseconds: 200),
-          width: MediaQuery.of(context).size.width - 130,
+          padding: EdgeInsets.only(left: horizontalPosition,
+              right: horizontalPosition,
+              bottom: verticalPosition),
+          width: width,
         );
 
-        vol2 = AnimatedContainer(
+        vol2 = Container(
           child: RichText(
             text: TextSpan(
                 text: countryB,
@@ -204,9 +206,9 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
             maxLines: 1,
           ),
           alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: 20.0, top: 15.0),
-          duration: Duration(milliseconds: 200),
-          width: MediaQuery.of(context).size.width - 130,
+          padding: EdgeInsets.only(
+              right: horizontalPosition, top: verticalPosition),
+          width: width,
         );
       });
     });
