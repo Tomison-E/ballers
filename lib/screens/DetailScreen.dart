@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:ballers/models/shuffle.dart';
 
 class DetailScreen extends StatefulWidget {
+
   @override
   _DetailScreenState createState() => _DetailScreenState();
 }
@@ -13,12 +14,23 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   double initial;
   double distance;
+  int counter;
 
   @override
   void initState() {
     distance = 0.0;
     initial = 0.0;
+    counter = Provider
+        .of<BallsApi>(context, listen: false)
+        .counter;
     super.initState();
+    if (counter == 1) {
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          showCustomDialogWithImage(context));
+      Provider
+          .of<BallsApi>(context, listen: false)
+          .counter++;
+    }
   }
 
   @override
@@ -27,8 +39,10 @@ class _DetailScreenState extends State<DetailScreen> {
     var loc = Provider.of<Shuffle>(context, listen: false).loc;
     return Scaffold(
       body: Stack(children: [
-        Image.asset("images/scene.png",
-            fit: BoxFit.cover, height: SizeConfig.blockSizeVertical * 50),
+        Image.asset("images/scene${Provider
+            .of<BallsApi>(context, listen: false)
+            .i}.png",
+            fit: BoxFit.fitHeight, height: SizeConfig.blockSizeVertical * 50),
         SafeArea(
           child: Column(children: [
             Flexible(
@@ -286,4 +300,79 @@ class _DetailScreenState extends State<DetailScreen> {
           .black12, // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  void showCustomDialogWithImage(BuildContext context) {
+    Dialog dialogWithImage = Dialog(
+      child: Container(
+        height: 350.0,
+        width: 350.0,
+        color: Colors.transparent,
+        alignment: Alignment.bottomCenter,
+        child: Column(
+          children: <Widget>[
+            Container(
+                padding: EdgeInsets.all(12),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(color: Colors.transparent),
+                child: Row(
+                  children: [Text(
+                    "Gesture Hint",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+
+                    IconButton(
+                        icon: Icon(Icons.clear, color: Colors.white, size: 35,),
+                        onPressed: () => Navigator.of(context).pop())
+                  ], mainAxisAlignment: MainAxisAlignment.spaceAround,)
+            ),
+            Row(
+              children: [Container(
+                height: 150,
+                child: Image.asset(
+                  'images/GestureA.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+                Container(
+                  height: 150,
+                  child: Image.asset(
+                    'images/GestureB.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ], mainAxisAlignment: MainAxisAlignment.spaceAround,
+            ),
+            SizedBox(height: 15.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(child: Text(
+                  'Swipe vertically on ball image to iterate through list of ball properties',
+                  style: TextStyle(fontSize: 15.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                ),
+                SizedBox(width: 10.0),
+                Expanded(child: Text(
+                  'Double tap on ball image for more details',
+                  style: TextStyle(fontSize: 15.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),)
+              ],
+            ),
+          ],
+        ),
+      ), backgroundColor: Colors.transparent, elevation: 500.0,
+    );
+
+    showDialog(
+        context: context, builder: (BuildContext context) => dialogWithImage);
+  }
+
 }

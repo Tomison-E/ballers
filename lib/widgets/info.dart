@@ -63,7 +63,13 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
                           child: Image.asset(
                             "images/${widget.ball[i].country}.png",
                             width: SizeConfig.blockSizeHorizontal * 10.67,)),
-                   Padding(child:RotatedBox(child: Text("${widget.ball[i].country}, ${widget.ball[i].state}",style: TextStyle(color: Colors.white,fontSize: 13.0),maxLines: 1,),quarterTurns: 1,),padding: EdgeInsets.only(right: 10.0,top: 5.0),),
+                      Padding(child: RotatedBox(child: Text(
+                        "${widget.ball[i].country}, ${widget.ball[i].state}",
+                        style: TextStyle(
+                            color: Colors.white, fontSize: SizeConfig
+                            .blockSizeVertical * 100 > 700 ? 13.0 : 8.0),
+                        maxLines: 1,), quarterTurns: 1,),
+                        padding: EdgeInsets.only(right: 10.0, top: 5.0),),
 
                     ],crossAxisAlignment: CrossAxisAlignment.end,mainAxisAlignment: MainAxisAlignment.end,
                   ),opacity: ao,duration: Duration(milliseconds: 700),
@@ -76,7 +82,11 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
         Padding(padding: EdgeInsets.only(top: 25.0),
             child: Image.asset("images/${widget.ball[j].country}.png",
               width: SizeConfig.blockSizeHorizontal * 10.67,)),
-        Padding(child:RotatedBox(child: Text("${widget.ball[j].country}, ${widget.ball[j].state}",style: TextStyle(color: Colors.white,fontSize: 13.0),maxLines: 1,),quarterTurns: 1,),padding: EdgeInsets.only(right: 10.0,top: 5.0),),
+        Padding(child: RotatedBox(child: Text(
+          "${widget.ball[j].country}, ${widget.ball[j].state}",
+          style: TextStyle(color: Colors.white, fontSize: SizeConfig
+              .blockSizeVertical * 100 > 700 ? 13.0 : 8.0), maxLines: 1,),
+          quarterTurns: 1,), padding: EdgeInsets.only(right: 10.0, top: 5.0),),
 
       ],crossAxisAlignment: CrossAxisAlignment.end,mainAxisAlignment: MainAxisAlignment.end,
     ),opacity: bo,duration: Duration(milliseconds: 700),

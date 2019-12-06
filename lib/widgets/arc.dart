@@ -32,7 +32,7 @@ class _ArcState extends State<Arc> {
     var loc = repaints.loc;
     return CustomPaint(
       foregroundPainter: new PathPainter(index: index, loc: loc),
-      child: Image.asset("images/Kaka Star.png"),
+      child: Image.asset("images/Red Impex Ball1.png"),
     );
   }
 }

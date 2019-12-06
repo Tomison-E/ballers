@@ -31,28 +31,23 @@ class _ScreenState extends State<Screen> {
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
       aspectRatio: 3 / 2,
-      autoPlay: true,
+      autoPlay: false,
       looping: true,
       fullScreenByDefault: false,
       isLive: false,
       allowedScreenSleep: false,
+      placeholder: Image.asset("images/scenes.gif"),
       //deviceOrientationsAfterFullScreen: [DeviceOrientation.landscapeRight,DeviceOrientation.landscapeLeft],
       // Try playing around with some of these other options:
 
       // showControls: false,
-      materialProgressColors: ChewieProgressColors(
-        playedColor: Colors.red,
-        handleColor: Colors.blue,
-        backgroundColor: Colors.grey,
-        bufferedColor: Colors.lightGreen,
-      ),
       // placeholder: Container(
       //   color: Colors.grey,
       // ),
       // autoInitialize: true,
     );
 
-    _timer = new Timer(const Duration(seconds: 60), () {
+    _timer = new Timer(const Duration(seconds: 30), () {
       setState(() {
         _chewieController.enterFullScreen();
       });
@@ -63,6 +58,7 @@ class _ScreenState extends State<Screen> {
   void dispose() {
     _videoPlayerController1.dispose();
     _chewieController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
@@ -88,21 +84,22 @@ class _ScreenState extends State<Screen> {
               Hero(
                   tag: "ball",
                   child:
-                      Image.asset("images/${ballers[2].name}.png", width: 50.0))
+                  Image.asset("images/${ballers[Provider
+                      .of<BallsApi>(context, listen: false)
+                      .i].name}.png", width: 50.0))
             ],
           ),
           backgroundColor: CupertinoColors.darkBackgroundGray,
           body: Column(
             children: [
               // Padding(child:CircleAvatar(backgroundImage: AssetImage("images/${ballers[2].name}.png"),radius: 30.0,backgroundColor: Colors.transparent,),padding: EdgeInsets.only(left: 15.0)),
-              SizedBox(height: 30.0),
-              Center(
-                child: Chewie(
+              Padding(child: Chewie(
                   controller: _chewieController,
-                ),
-              ),
+              ), padding: EdgeInsets.only(bottom: 100.0),
+              )
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
           )),
     );
   }

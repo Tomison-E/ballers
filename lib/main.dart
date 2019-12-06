@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: Router.generateRoute,
       onUnknownRoute: Router.unknownRoute,
       initialRoute: UIData.homeRoute,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

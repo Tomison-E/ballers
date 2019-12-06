@@ -35,12 +35,14 @@ Animation<Color> colorTween;
 
     @override
   void initState(){
-      animationController = AnimationController(duration: aSecond,vsync: this);
+      animationController =
+          AnimationController(duration: Duration(seconds: 2), vsync: this);
       widthTween = Tween<double>(begin: 100, end:240).animate(CurvedAnimation( parent:animationController, curve:Interval(0,0.5,curve: _curve)));
       heightTween = Tween<double>(begin: 50 , end:240).animate(CurvedAnimation(parent: animationController, curve: Interval(0.5,1, curve: _curve)));
       colorTween = Tween<Color>(begin: Colors.blue, end: Colors.red).animate(CurvedAnimation(parent: animationController, curve: Interval(1,1, curve: Curves.linear)));
 
       super.initState();
+      animationController.value = 0.5;
 }
 
 
@@ -49,8 +51,10 @@ Animation<Color> colorTween;
     return Center(
       child: InkWell(
         onTap: (){
-          animationController.status == AnimationStatus.dismissed
-              ? animationController.forward() : animationController.reverse();
+          //animationController.status == AnimationStatus.dismissed
+          //  ? animationController.forward() : animationController.reverse();
+
+          animationController.animateTo(1.0);
           setState(() {});
         },
         child: AnimatedBuilder(animation: animationController,

@@ -44,7 +44,6 @@ class _AnimatedBalls extends State<Balls> with SingleTickerProviderStateMixin{
   List<Animation<double>> o;
 
 
-
   @override
   void initState(){
     animationController =
@@ -79,7 +78,7 @@ class _AnimatedBalls extends State<Balls> with SingleTickerProviderStateMixin{
         end: -SizeConfig.blockSizeHorizontal * 24).animate(
         CurvedAnimation(parent: animationController, curve: _curve));
     oTweenC = Tween<double>(begin: 1.0 , end:1.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    topTweenD = Tween<double>(begin: SizeConfig.blockSizeVertical * 33.79,
+    topTweenD = Tween<double>(begin: SizeConfig.blockSizeVertical * 38.79,
         end: SizeConfig.blockSizeVertical * 36.95).animate(
         CurvedAnimation(parent: animationController, curve: _curve));
     leftTweenD = Tween<double>(begin: -SizeConfig.blockSizeHorizontal * 21.33,
@@ -107,29 +106,31 @@ class _AnimatedBalls extends State<Balls> with SingleTickerProviderStateMixin{
                   Stack(
                     children: <Widget>[
                       AnimatedPositioned(child: AnimatedOpacity(
-                        child: Image.asset("images/ball1.png"),
+                        child: Image.asset("images/${ballers[0].name}.png",),
                         opacity: o[i].value,
                         duration: Duration(milliseconds: 400),),
                         left: l[i].value,
                         right: r[i].value,
                         top: t[i].value,
-                        duration: Duration(milliseconds: 500),),
+                          duration: Duration(milliseconds: 500)),
                       AnimatedPositioned(child: AnimatedOpacity(
-                        child: Image.asset("images/ball2.png"),
+                        child: Image.asset("images/${ballers[1].name}.png",),
                         opacity: o[j].value,
                         duration: Duration(milliseconds: 400),),
                         left: l[j].value,
                         right: r[j].value,
                         top: t[j].value,
-                        duration: Duration(milliseconds: 500),),
+                          duration: Duration(milliseconds: 500)),
                       AnimatedPositioned(child: AnimatedOpacity(
                         child: Hero(
-                          tag: "balls", child: Image.asset("images/ball1.png"),
+                          tag: "balls",
+                          child: Image.asset("images/${ballers[2].name}.png"),
                           flightShuttleBuilder: (flightContext, animation,
                               direction,
                               fromContext, toContext) {
                             return Image.asset(
-                                "images/${ballers[2].name}.png", width: 50.0);
+                                "images/${ballers[index].name}.png",
+                                width: 50.0);
                           },),
                         opacity: o[k].value,
                         duration: Duration(milliseconds: 500),),

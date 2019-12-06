@@ -1,130 +1,158 @@
+import 'dart:ui' as ui;
+import 'package:provider/provider.dart';
+import 'package:ballers/models/shuffle.dart';
 import 'package:flutter/material.dart';
-import 'package:quiver/time.dart';
+import 'package:ballers/utils/sizeConfig.dart';
+import 'dart:math' as math;
+import 'dart:async';
+import 'dart:typed_data';
+import 'package:flutter/services.dart' show rootBundle;
+
+void main() =>
+    runApp(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(builder: (_) => Shuffle()),
+          ],
+          child: MaterialApp(
+            home: Arc(),
+          ),)
+    );
 
 
-
-
-void main(){
-  runApp(MaterialApp(
-    key: Key("staggered anime"),
-    home: Scaffold(
-      body: Ball(),
-      backgroundColor: Colors.black,
-    ),
-  ));
-}
-
-
-class Ball extends StatefulWidget{
-
-  @override
-  _AnimatedBalls createState()=> _AnimatedBalls();
-
-
-}
-
-
-class _AnimatedBalls extends State<Ball> with SingleTickerProviderStateMixin{
-
-  int i,j,k;
-
-  List<double> t;
-  List<double> r;
-  List<double> l;
-  List<double> o;
-
+class Arc extends StatefulWidget {
 
 
   @override
-  void initState(){
-  super.initState();
+  _ArcState createState() => new _ArcState();
+}
 
-    t = [100.0,125.0,110.0,400.0,450.0];
-    l = [120.0,90.0,-80.0,-80.0,-80.0];
-    r = [170.0,100.0,-90.0,-90.0,-90.0];
-    o = [0.0,1.0,1.0,0.0,0.0];
+class _ArcState extends State<Arc> {
 
-    i=0;j=1;k=2;
+  void initState() {
+    super.initState();
+    // init();
   }
 
 
   @override
-  Widget build(BuildContext context){
-    return Container(
-      child: Align(
-          child: InkWell(
-            onTap: (){
-              if(i<2){
-                i++;
-                j++;
-                k<3?k++:k=3;
-                setState(() {
-                });
-              }
-            },
-            onDoubleTap: (){
-              if (k > 1) {
-                i > 0 ? --i : i = 0;
-                --j;
-                j==2?k=3:--k;
-                setState(() {});
-              }},
-            child: Container(
-              height: 400.0,
-              color: Colors.black,
-              width: 400.0,
-              child: Stack(
-                  children: <Widget>[
-                    AnimatedPositioned(child:AnimatedOpacity(child: Image.asset("images/ball1.png"),opacity: o[i],duration: Duration(milliseconds: 500),),left: l[i],right: r[i],top:t[i],duration: Duration(microseconds: 800),),
-                    AnimatedPositioned(child:AnimatedOpacity(child: Image.asset("images/ball2.png"),opacity: o[j],duration: Duration(milliseconds: 500),),left: l[j],right: r[j],top:t[j],duration: Duration(milliseconds: 800),),
-                    AnimatedPositioned(child:AnimatedOpacity(child: Image.asset("images/ball1.png"),opacity: o[k],duration: Duration(milliseconds: 500),),top: t[k], right: r[k],left: l[k],duration: Duration(milliseconds: 800),)
-                  ],
-                ),
-            ),
-          ), alignment: Alignment.bottomCenter),
-      color: Colors.black,
+  Widget build(BuildContext context) {
+    var repaints = Provider.of<Shuffle>(context, listen: false);
+    var index = repaints.index;
+    var loc = repaints.loc;
+    return CustomPaint(
+      painter: new PathPainter(index: index, loc: loc),
     );
   }
 }
 
-/*onDoubleTap: (){
-            if(animationController.isCompleted) {
-              animationController.reverse();
-              setState(() {});
-            }
-            else{
-             animationController.reset();
-              setState(() {});
-            }
-          },*/
+class PathPainter extends CustomPainter {
+  final index;
+  final loc;
 
-/*
-    onDoubleTap: (){
-    if(animationController.isCompleted) {
-    animationController.reverse();
-    setState(() {});
-    }
-    else {
-      if(k>2) {
-        i > 0 ? i-- : i = 0;
-        j > 0 ? j-- : j = 1;
-        k > 0 ? k-- : k = 2;
-        setState(() {});
-      }
-    }
-          }
- */
+  PathPainter({this.index, this.loc, this.image});
 
-/*topTweenA = Tween<double>(begin: 100.0 , end:105.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    leftTweenA = Tween<double>(begin: 150.0 , end:90.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    rightTweenA = Tween<double>(begin: 170.0 , end:100.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    oTweenA = Tween<double>(begin: 0.0 , end:1.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    topTweenB = Tween<double>(begin: 105.0 , end:110.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    leftTweenB = Tween<double>(begin: 90.0 , end:-80.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    rightTweenB = Tween<double>(begin: 100.0 , end:-90.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
-    oTweenB = Tween<double>(begin: 1.0 , end:1.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
-    topTweenC = Tween<double>(begin: 110.0 , end:400.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
-    leftTweenC = Tween<double>(begin: -80.0 , end:-80.0).animate(CurvedAnimation(parent: animationController,curve: _curve));
-    rightTweenC = Tween<double>(begin: -90.0 , end:-90.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    oTweenC = Tween<double>(begin: 1.0 , end:1.0).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    */
+  ui.Image image;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    double blockSizeHorizontal = size.width / 100;
+    double blockSizeVertical = size.height / 100;
+    final paint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+
+    final paints = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 5;
+
+    final painted = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3;
+
+    final painter = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 8;
+
+    num degToRad(num deg) => deg * (math.pi / 180.0);
+    //var offsetList = [Offset(-69.0, 150.0), Offset(-74.0, 350.0),Offset(-61.0, 510.0),Offset(-63.0, 560.0)];
+    //   var offsetList = [Offset(-blockSizeHorizontal*18.35, blockSizeVertical*34.80), Offset(-blockSizeHorizontal*19.68, blockSizeVertical*81.21),Offset(-blockSizeHorizontal*16.22, blockSizeVertical*118.33),Offset(-blockSizeHorizontal*16.76, blockSizeVertical*129.93)];
+    var offsetList = [
+      Offset(-blockSizeHorizontal * 24.95, blockSizeVertical * 35.80),
+      Offset(-blockSizeHorizontal * 20.58, blockSizeVertical * 89.21),
+      Offset(-blockSizeHorizontal * 17.22, blockSizeVertical * 125.33),
+      Offset(-blockSizeHorizontal * 16.76, blockSizeVertical * 129.93)
+    ];
+    var rad = [3.0, 1.0, 3.0, 3.0];
+
+    canvas.rotate(-.99);
+    //canvas.drawArc(rect, degToRad(0),degToRad(270), useCenter, paint);
+    //  canvas.drawLine(Offset(90.0, 10.0), Offset(90.0, 80.0), paint);
+    //canvas.drawOval(Rect.fromPoints(Offset(50.0, 350), Offset(170, 500)), paint);
+    //canvas.drawOval(Rect.fromCenter(center:Offset(0.0, 300),width: 10.0,height: 370.0), paint);
+    var path = Path();
+    /*  if(j>3){
+      j=0;
+    }*/
+
+    //path.moveTo(30.0, 0.0);
+    // path.lineTo(-10.0, -100.0);
+    //path.lineTo(-10.0, 500.0);
+    // path.lineTo(size.width+100.0, 0.0);
+    // path.arcToPoint(Offset(150.0,250.0));
+    //path.addArc(Rect.fromCenter(center:Offset(-50.0, 300),width: 50.0,height:470.0), degToRad(300.0), degToRad(-210.0));
+
+    canvas.drawCircle(offsetList[loc[0]], rad[loc[0]], paints);
+    canvas.drawCircle(offsetList[loc[1]], rad[loc[1]], painter);
+    canvas.drawCircle(offsetList[loc[2]], rad[loc[2]], paints);
+    //canvas.drawCircle(offsetList[loc[3]], rad[loc[3]], paints);
+    /*index>0? _timer = new Timer(Duration(milliseconds: 300),() {
+      canvas.drawCircle(Offset(faction[loc[0]], fraction[loc[0]]), rad[loc[0]], painter);
+    }):canvas.drawCircle(Offset(faction[loc[0]], fraction[loc[0]]), rad[loc[0]], painter);
+   canvas.drawCircle(Offset(faction[loc[1]], fraction[loc[1]]), rad[loc[1]], painter);
+    index>0?  _timer = new Timer(Duration(milliseconds: 100),() {
+      canvas.drawCircle(Offset(faction[loc[2]], fraction[loc[2]]), rad[loc[2]], painter);
+    }): canvas.drawCircle(Offset(faction[loc[2]], fraction[loc[2]]), rad[loc[2]], painter);*/
+    //canvas.drawPoints(PointMode.points, offsetList, paints);
+    // path.addArc(Rect.fromPoints(Offset(50.0, 350), Offset(170, 500)), degToRad(300.0), degToRad(-90.0));
+    // canvas.drawCircle(Offset(90.0, 350.0), 6.0, paint);
+    //  path.close();
+    print(size.width);
+    print(SizeConfig.blockSizeVertical);
+    /*
+    index==1?canvas.drawCircle(Offset(-74.5, 340.0), 6.0, paints):canvas.drawCircle(offsetList[index], rad[index], paints);
+   index==1? canvas.drawCircle(Offset(-67.0, 480.0), 3.0, painter):canvas.drawCircle(offsetList[index+1], 6.0, painter);
+   index==1?canvas.drawCircle(offsetList[index+2], 3.0, paints):canvas.drawCircle(offsetList[index+2], rad[index+2], paints);
+   index==1? canvas.drawCircle(Offset(-69.0, 160.0), 3.0, paints):canvas.drawCircle(offsetList[j], rad[j], paints);
+     */
+    //path.addArc(Rect.fromCenter(center:Offset(-SizeConfig.blockSizeHorizontal*13.33, SizeConfig.blockSizeVertical*36.95),width: 50.0,height:SizeConfig.blockSizeVertical*57.88), degToRad(300.0), degToRad(-210.0));
+    //
+    //path.addArc(Rect.fromCenter(center:Offset(-SizeConfig.blockSizeHorizontal*13.33, SizeConfig.blockSizeVertical*36.95),width: 50.0,height:SizeConfig.blockSizeVertical*62.88), degToRad(300.0), degToRad(-210.0));
+    path.addArc(
+        Rect.fromCenter(center: Offset(-160, 360), width: 50.0, height: 370),
+        degToRad(300.0), degToRad(-210.0));
+    canvas.drawPath(path, paint);
+
+    //index==1?canvas.drawCircle(Offset(-74.5, 340.0), 6.0, paints):print("no");
+    // index==1?canvas.drawCircle(offsetList[3], 2.0, paints):print("no");
+    //index==1?canvas.drawCircle(offsetList[2], 4.0, paints):print("no");
+    // index==1?canvas.drawCircle(offsetList[0], 4.0, paints):print("no");
+
+// close the path to form a bounded shape
+    canvas.drawCircle(offsetList[1], 6.0, painted);
+
+
+    // canvas.drawOval(Rect.fromCircle(center:Offset(0.0, 550),radius: 10.0 ), paint);
+
+  }
+
+
+  @override
+  bool shouldRepaint(PathPainter oldDelegate) {
+    return index != oldDelegate.index;
+  }
+}
