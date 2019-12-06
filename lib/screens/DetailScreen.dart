@@ -53,8 +53,8 @@ class _DetailScreenState extends State<DetailScreen> {
                       child: Row(
                         children: [
                           GestureDetector(
-                              child: Icon(Icons.keyboard_backspace,
-                                  color: Colors.white),
+                              child: Padding(padding: EdgeInsets.only(right:10.0,top: 10.0,bottom: 10.0),child:Icon(Icons.keyboard_backspace,
+                                  color: Colors.white)),
                               onTap: () {
                                 Navigator.of(context).pop();
                               }),

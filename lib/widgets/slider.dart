@@ -17,9 +17,6 @@ class Slide extends StatefulWidget {
 }
 
 class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
-  final _curve = Curves.linear;
-  AnimationController animationController;
-  Animation<double> slider;
   double width;
   double verticalPosition;
   double horizontalPosition;
@@ -37,10 +34,6 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
     horizontalPosition = SizeConfig.blockSizeHorizontal * 5.33;
     verticalPosition = SizeConfig.blockSizeVertical * 2.46;
     width = SizeConfig.blockSizeHorizontal * 64;
-    animationController =
-        AnimationController(duration: Duration(seconds: 1), vsync: this);
-    slider = Tween<double>(begin: 200.0, end: 10.0).animate(
-        CurvedAnimation(parent: animationController, curve: _curve));
     countryA = widget.ball[widget.i].homeTeam;
     scoreA = " ${widget.ball[widget.i].homeTeamScore}";
     countryB = widget.ball[widget.i].awayTeam;
@@ -138,7 +131,7 @@ class _AnimatedSlider extends State<Slide> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    animationController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 

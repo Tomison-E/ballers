@@ -17,7 +17,6 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
   int j;
   final _curve = Curves.linear;
   double motion = 0.0;
-  AnimationController animationController;
   double a;
   double ao;
   double b;
@@ -32,7 +31,6 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
 
   @override
   void initState(){
-    animationController = AnimationController(duration: Duration(seconds: 1),vsync: this);
     a=0.0;
     b=20.0;
     ao=1.0;
@@ -188,7 +186,7 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
 
   @override
   void dispose(){
-    animationController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 

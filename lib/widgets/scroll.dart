@@ -19,7 +19,6 @@ class Scroll extends StatefulWidget{
 class _AnimatedScroll extends State<Scroll> with SingleTickerProviderStateMixin{
 
   final _curve = Curves.linear;
-  AnimationController animationController;
   ScrollController _controller;
   List<double> radian;
   List<Color> color;
@@ -33,7 +32,6 @@ class _AnimatedScroll extends State<Scroll> with SingleTickerProviderStateMixin{
 
   @override
   void initState(){
-    animationController = AnimationController(duration: Duration(seconds: 1),vsync: this);
     _controller =ScrollController();
     i = widget.index;
     median = 0.0;
@@ -63,7 +61,7 @@ class _AnimatedScroll extends State<Scroll> with SingleTickerProviderStateMixin{
   }
   @override
   void dispose(){
-    animationController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 

@@ -18,7 +18,6 @@ class Info extends StatefulWidget{
 
 
 class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
-  AnimationController animationController;
   double a;
   double ao;
   double b;
@@ -35,7 +34,6 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
 
   @override
   void initState(){
-    animationController = AnimationController(duration: Duration(seconds: 1),vsync: this);
     super.initState();
     a= 1.0;
     b= 1.0;
@@ -64,10 +62,9 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
                             "images/${widget.ball[i].country}.png",
                             width: SizeConfig.blockSizeHorizontal * 10.67,)),
                       Padding(child: RotatedBox(child: Text(
-                        "${widget.ball[i].country}, ${widget.ball[i].state}",
+                        "${widget.ball[i].country} ${SizeConfig.blockSizeVertical*100>700?widget.ball[i].state:''}",
                         style: TextStyle(
-                            color: Colors.white, fontSize: SizeConfig
-                            .blockSizeVertical * 100 > 700 ? 13.0 : 8.0),
+                            color: Colors.white, fontSize: 13.0),
                         maxLines: 1,), quarterTurns: 1,),
                         padding: EdgeInsets.only(right: 10.0, top: 5.0),),
 
@@ -83,9 +80,8 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
             child: Image.asset("images/${widget.ball[j].country}.png",
               width: SizeConfig.blockSizeHorizontal * 10.67,)),
         Padding(child: RotatedBox(child: Text(
-          "${widget.ball[j].country}, ${widget.ball[j].state}",
-          style: TextStyle(color: Colors.white, fontSize: SizeConfig
-              .blockSizeVertical * 100 > 700 ? 13.0 : 8.0), maxLines: 1,),
+          "${widget.ball[j].country} ${SizeConfig.blockSizeVertical*100>700?widget.ball[j].state:''}",
+          style: TextStyle(color: Colors.white, fontSize: 13.0), maxLines: 1,),
           quarterTurns: 1,), padding: EdgeInsets.only(right: 10.0, top: 5.0),),
 
       ],crossAxisAlignment: CrossAxisAlignment.end,mainAxisAlignment: MainAxisAlignment.end,
@@ -143,7 +139,7 @@ class _AnimatedInfo extends State<Info> with SingleTickerProviderStateMixin{
 
   @override
   void dispose(){
-    animationController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 

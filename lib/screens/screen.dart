@@ -76,7 +76,7 @@ class _ScreenState extends State<Screen> {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             leading: GestureDetector(
-                child: Icon(Icons.keyboard_backspace, color: Colors.white),
+                child: Padding(padding: EdgeInsets.only(right:10.0,top: 10.0,bottom: 10.0),child:Icon(Icons.keyboard_backspace, color: Colors.white)),
                 onTap: () {
                   Navigator.of(context).pop();
                 }),

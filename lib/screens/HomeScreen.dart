@@ -55,7 +55,7 @@ void initState(){
                           child: Padding(
                             child: Row(
                               children: [
-                                Icon(Icons.keyboard_backspace, color: Colors
+                                Icon(Icons.home, color: Colors
                                     .white),
                                 ImageIcon(AssetImage(
                                     "images/icons/hamb menu.png"), color: Colors
