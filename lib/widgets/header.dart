@@ -59,7 +59,8 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
                             duration: Duration(milliseconds: 300),
                             child: Padding(child: Text(widget.ball[ii].name,
                                 style: TextStyle(color: Colors.white,
-                                    fontSize: 40.0,
+                                    fontSize: SizeConfig.blockSizeVertical *
+                                        4.93,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.left),
                                 padding: EdgeInsets.only(
@@ -72,7 +73,8 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
                             duration: Duration(milliseconds: 300),
                             child: Padding(child: Text(widget.ball[j].name,
                                 style: TextStyle(color: Colors.white,
-                                    fontSize: 40.0,
+                                    fontSize: SizeConfig.blockSizeVertical *
+                                        4.93,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.left),
                                 padding: EdgeInsets.only(
@@ -122,7 +124,7 @@ class _AnimatedHeader extends State<Header> with SingleTickerProviderStateMixin{
                                     style: TextStyle(color: Colors.white70,
                                         fontSize: 10.0,
                                         fontWeight: FontWeight.normal),
-                                    textAlign: TextAlign.left),
+                                  textAlign: TextAlign.left, maxLines: 2,),
                                     padding: EdgeInsets.only(
                                         top: SizeConfig.blockSizeVertical *
                                             1.23,
