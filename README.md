@@ -1,7 +1,7 @@
 # ballers
 
 A flutter application showcasing various animations.
-Android BETA TESTING https://play.google.com/apps/testing/tomisinesan.com.ballers
+Android BETA TESTING ON PLAY STORE https://play.google.com/apps/testing/tomisinesan.com.ballers
 
 ## Design Template UI
 ![](images/screenTemplate/mundial_balls.gif)
